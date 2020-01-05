@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DamTreb</string>
+    <string name="text_main">Bienvenido a DamTreb</string>
+    <string name="text_main_2">Selecciona una opción:</string>
+    <string name="btn_billetes">Leer billetes</string>
+    <string name="btn_agregar_ubicacion">Agregar una ubicacion</string>
+    <string name="btn_ver">Ver ubicaciones</string>
+
 </resources>
