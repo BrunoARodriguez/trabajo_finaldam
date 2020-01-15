@@ -38,7 +38,8 @@ private static final int REQUEST_IMAGE_CAPTURE = 1;
         btnAgregarUbicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"en desarrollo",Toast.LENGTH_LONG).show();
+Intent i2= new Intent(MainActivity.this, LocationActivity.class);
+startActivity(i2);
 
             }
         });
@@ -54,7 +55,8 @@ private static final int REQUEST_IMAGE_CAPTURE = 1;
 byte[] imagen = stream.toByteArray();
 String imagenString = Base64.encodeToString(imagen, Base64.DEFAULT);
             //String imagenString = new String(imagen);
-Toast.makeText(MainActivity.this,"volvio a la pantalla",Toast.LENGTH_LONG).show();
+//Toast.makeText(MainActivity.this,"volvio a la pantalla",Toast.LENGTH_LONG).show();
+
 Intent intent= new Intent(MainActivity.this, TicketActivity.class);
 startActivity(intent);
 

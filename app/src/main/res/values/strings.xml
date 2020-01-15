@@ -5,5 +5,8 @@
     <string name="btn_billetes">Leer billetes</string>
     <string name="btn_agregar_ubicacion">Agregar una ubicacion</string>
     <string name="btn_ver">Ver ubicaciones</string>
-<string name="btn_volver">Volver a menú</string>
+    <string name="btn_volver">Volver a menú</string>
+    <string name="texto_location">Ingrese el nombre de la ubicación:</string>
+    <string name="btn_crear_ubicacion">Crear ubicación</string>
+    <string name="btn_agregar_fav">Agregar a favoritos</string>
 </resources>
