@@ -2,12 +2,15 @@ package com.dam.damtreb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.dam.damtreb.domain.Location;
+
+import java.util.Map;
 
 public class LocationActivity extends AppCompatActivity {
 private EditText etNombre;
@@ -25,12 +28,14 @@ private  Button btnAgregarFavorito;
     btnCrear = (Button) findViewById(R.id.btnCrearLocation);
     btnAgregarFavorito = (Button) findViewById(R.id.btnAgregarFav);
 
+
 btnCrear.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
 nombre = etNombre.getText().toString();
 location = new Location(nombre,0.0,0.0);
-
+        Intent intent = new Intent(LocationActivity.this, MapsActivity.class);
+        startActivity(intent);
 
     }
 });

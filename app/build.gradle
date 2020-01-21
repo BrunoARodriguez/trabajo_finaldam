@@ -20,9 +20,12 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.libraries.places:places:2.0.0'
+
     def room_version = "2.2.0-beta01"
 
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
