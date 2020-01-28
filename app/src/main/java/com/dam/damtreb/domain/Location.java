@@ -16,13 +16,15 @@ private  Integer id;
     }
 
     private  String name;
-private  Double length;
+private  Double longitude;
 private  Double latitude;
+private Boolean favourite;
 
-    public Location(String name,Double length, Double latitude) {
+    public Location(String name,Double longitude, Double latitude) {
         this.name = name;
-        this.length = length;
+        this.longitude = longitude;
         this.latitude = latitude;
+        favourite = false;
     }
 
     @NonNull
@@ -38,12 +40,12 @@ private  Double latitude;
         this.name = name;
     }
 
-    public Double getLength() {
-        return length;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setLength(Double length) {
-        this.length = length;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public Double getLatitude() {
@@ -54,6 +56,14 @@ private  Double latitude;
         this.latitude = latitude;
     }
 
+    public Boolean getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(Boolean favourite) {
+        this.favourite = favourite;
+    }
+
     //equals
 
     @Override
@@ -62,7 +72,7 @@ private  Double latitude;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
         return Objects.equals(name, location.name) &&
-                Objects.equals(length, location.length) &&
+                Objects.equals(longitude, location.longitude) &&
                 Objects.equals(latitude, location.latitude);
     }
 

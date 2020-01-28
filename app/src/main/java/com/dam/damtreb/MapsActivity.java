@@ -1,7 +1,10 @@
 package com.dam.damtreb;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,13 +38,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+actualizarMapa();
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+public  void actualizarMapa(){
+if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+    ActivityCompat.requestPermissions(this,
+new  String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999          );
+return;
 }
+
+mMap.setMyLocationEnabled(true);
+mMap.getUiSettings().setCompassEnabled(true);
+mMap.getUiSettings().setZoomControlsEnabled(true);
+mMap.getUiSettings().setTiltGesturesEnabled(true);
+
+}
+}
+

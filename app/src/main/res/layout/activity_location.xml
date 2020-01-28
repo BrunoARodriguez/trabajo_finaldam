@@ -13,28 +13,33 @@
     android:textSize="@dimen/etiquetas"
     android:text="@string/texto_location"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etNombre"
-        android:hint="Nombre"
-        android:inputType="text"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 <Button
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/btnCrearLocation"
-    android:text="@string/btn_crear_ubicacion"/>
+    android:id="@+id/btnMyLocation"
+    android:text="@string/btn_ubicacion_actual"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/btnAgregarFav"
-            android:text="@string/btn_agregar_fav"/>
-
+            android:text="@string/btn_ubicacion_destino"
+            android:id="@+id/btnLocationDest"/>
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+android:text="@string/btn_ver"
+    android:id="@+id/btnVerFavoritas"/>
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height = "wrap_content"
+        android:id="@+id/btnAgregarFav"
+        android:text="@string/btn_agregar_fav"
+        android:visibility="gone"/>
 
 </LinearLayout>

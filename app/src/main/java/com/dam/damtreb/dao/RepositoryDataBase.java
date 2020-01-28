@@ -23,4 +23,10 @@ public  static RepositoryDataBase getInstance(Context ctx) {
     }
 return  repo;
 }
+
+    public MyDataBase getMyDataBase() {
+        return myDataBase;
+    }
+
+
 }
