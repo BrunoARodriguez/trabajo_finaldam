@@ -32,8 +32,8 @@ import java.util.Map;
 
 public class LocationActivity extends AppCompatActivity {
     //flags
-    int AUTO_COMPLETE_REQUEST = 1;
-    int MY_LOCATION_REQUEST = 0;
+    private  static  final int AUTO_COMPLETE_REQUEST = 1;
+    private  static  final int MY_LOCATION_REQUEST = 0;
     //widget
     private Button btnMyLocation;
     private Button btnLocationDest;
@@ -42,7 +42,8 @@ public class LocationActivity extends AppCompatActivity {
     private Location locationStart;
     private Location locationFinish;
     private String nombre;
-
+private Double lat;
+private  Double lng;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +84,33 @@ startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
 
 @Override
 protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+super.onActivityResult(requestCode,resultCode,data);
+        switch (requestCode) {
+    case  AUTO_COMPLETE_REQUEST:
+    if (resultCode == RESULT_OK && data != null) {
+         lat = data.getDoubleExtra("latitude", 0.0);
+         lng = data.getDoubleExtra("longitude", 0.0);
+        nombre = data.getStringExtra("name");
 
+        locationFinish = new Location(nombre, lng, lat);
+
+    }
+else  {
+    Toast.makeText(LocationActivity.this,"Error: no se seleccionó el lugar destino", Toast.LENGTH_LONG).show();
+
+    }
+    break;
+    case  MY_LOCATION_REQUEST:
+if (resultCode == RESULT_OK){
+lat = data.getDoubleExtra("latitude", 0.0);
+lng = data.getDoubleExtra("longitude", 0.0);
+nombre = "Ubicación actual";
+locationStart = new Location(nombre,lng,lat);
+
+
+}
+        break;
+}
     }
 
 
