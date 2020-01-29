@@ -52,9 +52,8 @@ private  Double lng;
         btnMyLocation = (Button) findViewById(R.id.btnMyLocation);
         btnLocationDest = (Button) findViewById(R.id.btnLocationDest);
         btnAgregarFavorito = (Button) findViewById(R.id.btnAgregarFav);
-        Places.initialize(getApplicationContext(), String.valueOf(R.string.clave_apy_5));
 
-        PlacesClient placesClient = Places.createClient(getApplicationContext());
+
 
         btnMyLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +66,7 @@ private  Double lng;
             @Override
             public void onClick(View view) {
 btnAgregarFavorito.setVisibility(View.VISIBLE);
+
 Intent intent = new Intent(LocationActivity.this, AutocompleteActivity.class);
 startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
 
@@ -84,7 +84,7 @@ startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
 
 @Override
 protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-super.onActivityResult(requestCode,resultCode,data);
+
         switch (requestCode) {
     case  AUTO_COMPLETE_REQUEST:
     if (resultCode == RESULT_OK && data != null) {
