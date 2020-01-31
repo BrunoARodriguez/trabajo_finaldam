@@ -27,12 +27,11 @@ public class AutocompleteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_autocomplete);
         //String apyKey = getString(R.string.clave_apy_5);
 
-        if (Places.isInitialized()) {
+        if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), "apyKey");
         }
 // Create a new Places client instance.
         //PlacesClient placesClient = Places.createClient(this);
-
 
 
         autocompleteFragment = (AutocompleteSupportFragment)
@@ -40,31 +39,31 @@ public class AutocompleteActivity extends AppCompatActivity {
 //assert  autocompleteFragment != null;
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
 
-    autocompleteFragment.setOnPlaceSelectedListener(placeSelectionListener);
+        autocompleteFragment.setOnPlaceSelectedListener(placeSelectionListener);
 
 
     }
 
-PlaceSelectionListener placeSelectionListener = new PlaceSelectionListener() {
-    @Override
-    public void onPlaceSelected(@NonNull Place place) {
+    PlaceSelectionListener placeSelectionListener = new PlaceSelectionListener() {
+        @Override
+        public void onPlaceSelected(@NonNull Place place) {
 
-        Toast.makeText(AutocompleteActivity.this,"place: " + place.getName(), Toast.LENGTH_LONG).show();
-        Intent data = new Intent(AutocompleteActivity.this, LocationActivity.class);
-        data.putExtra("latitude", place.getLatLng().latitude);
-        data.putExtra("longitude", place.getLatLng().longitude);
-        data.putExtra("name", place.getName());
-        setResult(Activity.RESULT_OK, data);
-        finish();
+            Toast.makeText(AutocompleteActivity.this, "place: " + place.getName(), Toast.LENGTH_LONG).show();
+            Intent data = new Intent(AutocompleteActivity.this, LocationActivity.class);
+            data.putExtra("latitude", place.getLatLng().latitude);
+            data.putExtra("longitude", place.getLatLng().longitude);
+            data.putExtra("name", place.getName());
+            setResult(Activity.RESULT_OK, data);
+            finish();
 
-    }
+        }
 
-    @Override
-    public void onError(@NonNull Status status) {
-        Log.i("damTreb", "onError: " + status.getStatusMessage());
+        @Override
+        public void onError(@NonNull Status status) {
+            Log.i("damTreb", "onError: " + status.getStatusMessage());
 
-    }
-};
+        }
+    };
 
 }
 

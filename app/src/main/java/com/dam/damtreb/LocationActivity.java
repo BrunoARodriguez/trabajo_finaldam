@@ -101,10 +101,12 @@ else  {
     }
     break;
     case  MY_LOCATION_REQUEST:
-if (resultCode == RESULT_OK){
+
+        if (resultCode == RESULT_OK){
 lat = data.getDoubleExtra("latitude", 0.0);
 lng = data.getDoubleExtra("longitude", 0.0);
 nombre = "Ubicación actual";
+Toast.makeText(LocationActivity.this,"nombre: "+ nombre + ", la latitud: "+ lat, Toast.LENGTH_LONG).show();
 locationStart = new Location(nombre,lng,lat);
 
 

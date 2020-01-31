@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import com.dam.damtreb.domain.Location;
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,13 +21,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-private  static  final  int CHECK = -1;
-private  static GoogleApiClient mApyClient;
+    private static final int CHECK = -1;
 
     private GoogleMap mMap;
-private Marker ubicacion;
+    private Marker ubicacion;
+    private LatLng myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,26 @@ private Marker ubicacion;
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-actualizarMapa();
-// marcador en ubicacion actual
+        actualizarMapa();
+        // marcador en ubicacion actual
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    Toast.makeText(MapsActivity.this, "name: " + location.getProvider(), Toast.LENGTH_SHORT).show();
+                    Intent data = new Intent(MapsActivity.this, LocationActivity.class);
+                    data.putExtra("latitude", location.getLatitude());
+                    data.putExtra("longitude", location.getLongitude());
+                    setResult(RESULT_OK, data);
+                    finish();
 
-        LatLng myLocation  = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude());
+                }
+            });
+        }
 
-
+/*
+        //LatLng sydney = new LatLng(-32.9590056, -60.6409738);
 ubicacion = mMap.addMarker(new MarkerOptions().position(myLocation)
         .title("Mi ubicacion ")
         .draggable(true)
@@ -79,26 +96,26 @@ if (marker.equals(ubicacion)){
         return false;
     }
 });
+*/
     }
 
-public  void actualizarMapa(){
-if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-    ActivityCompat.requestPermissions(this,
-new  String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999          );
-    mMap.setMyLocationEnabled(true);
-    mMap.getUiSettings().setCompassEnabled(true);
-    mMap.getUiSettings().setZoomControlsEnabled(true);
-    mMap.getUiSettings().setTiltGesturesEnabled(true);
-mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+    public void actualizarMapa() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 9999);
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setCompassEnabled(true);
+            mMap.getUiSettings().setZoomControlsEnabled(true);
+            mMap.getUiSettings().setTiltGesturesEnabled(true);
 
-    return;
-}
+            return;
+        }
 
-mMap.setMyLocationEnabled(true);
-mMap.getUiSettings().setCompassEnabled(true);
-mMap.getUiSettings().setZoomControlsEnabled(true);
-mMap.getUiSettings().setTiltGesturesEnabled(true);
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setTiltGesturesEnabled(true);
 
-}
+    }
 }
 
