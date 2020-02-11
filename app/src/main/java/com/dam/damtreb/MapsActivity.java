@@ -57,11 +57,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         actualizarMapa();
         // marcador en ubicacion actual
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
                     Toast.makeText(MapsActivity.this, "name: " + location.getProvider(), Toast.LENGTH_SHORT).show();
+
                     Intent data = new Intent(MapsActivity.this, LocationActivity.class);
                     data.putExtra("latitude", location.getLatitude());
                     data.putExtra("longitude", location.getLongitude());

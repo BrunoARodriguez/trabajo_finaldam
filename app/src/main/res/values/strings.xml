@@ -10,5 +10,8 @@
     <string name="btn_ubicacion_actual">Ubicacion actual</string>
     <string name="btn_ubicacion_destino">Seleccionar ubicación destino</string>
     <string name="btn_agregar_fav">Agregar a favoritos</string>
+    <string name="btn_distancia_location">Distancia hasta ubicación destino</string>
+    <string name="btn_seleccionar_de_lista">Seleccionar ubicación</string>
+    <string name="btn_eliminar_de_fila">Eliminar ubicación favorita</string>
     <string name="title_activity_maps">Map</string>
 </resources>

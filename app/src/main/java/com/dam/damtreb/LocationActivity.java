@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,12 +39,15 @@ public class LocationActivity extends AppCompatActivity {
     private Button btnMyLocation;
     private Button btnLocationDest;
     private Button btnAgregarFavorito;
+    private  Button btnDistancia;
     //variables
     private Location locationStart;
     private Location locationFinish;
     private String nombre;
 private Double lat;
 private  Double lng;
+private  float[] result = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +56,8 @@ private  Double lng;
         btnMyLocation = (Button) findViewById(R.id.btnMyLocation);
         btnLocationDest = (Button) findViewById(R.id.btnLocationDest);
         btnAgregarFavorito = (Button) findViewById(R.id.btnAgregarFav);
-
+btnDistancia = (Button) findViewById(R.id.btnDistanciaLocation);
+result = new  float[3];
 
 
         btnMyLocation.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +80,7 @@ startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
         btnAgregarFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SaveLocation tareaLocation = new SaveLocation();
+                SaveLocation tareaLocation = new SaveLocation(LocationActivity.this);
                 tareaLocation.execute(locationFinish);
 
             }
@@ -108,16 +113,43 @@ lng = data.getDoubleExtra("longitude", 0.0);
 nombre = "Ubicación actual";
 Toast.makeText(LocationActivity.this,"nombre: "+ nombre + ", la latitud: "+ lat, Toast.LENGTH_LONG).show();
 locationStart = new Location(nombre,lng,lat);
-
+locationFinish = new Location("destino", 0.0, 0.0);
 
 }
         break;
 }
+    btnDistancia.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            android.location.Location.distanceBetween(locationStart.getLatitude(),locationStart.getLongitude(),locationFinish.getLatitude(),locationFinish.getLongitude(), result);
+            Toast.makeText(LocationActivity.this,"la distancia es: "+ result[0]+" , a la ubicación destino", Toast.LENGTH_LONG).show();
+
+
+        }
+    });
     }
 
+    @Override
+    protected  void  onStart(){
+super.onStart();
+        btnDistancia.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+        android.location.Location.distanceBetween(locationStart.getLatitude(),locationStart.getLongitude(),locationFinish.getLatitude(),locationFinish.getLongitude(), result);
+        Toast.makeText(LocationActivity.this,"la distancia es: "+ result[0]+" , a la ubicación destino", Toast.LENGTH_LONG).show();
+
+    }
+});
+    }
 
     class SaveLocation extends AsyncTask<Location, Void, Void> {
 
+        private Context context;
+
+        public  SaveLocation(Context context) {
+            this.context = context;
+        }
         @Override
         protected Void doInBackground(Location... locations) {
             LocationDao dao = RepositoryDataBase.getInstance(LocationActivity.this)

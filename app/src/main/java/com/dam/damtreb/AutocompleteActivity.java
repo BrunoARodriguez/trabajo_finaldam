@@ -2,17 +2,22 @@ package com.dam.damtreb;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
+import  com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
@@ -20,28 +25,44 @@ import java.util.Arrays;
 
 public class AutocompleteActivity extends AppCompatActivity {
     private AutocompleteSupportFragment autocompleteFragment;
+private Button btnFavorito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autocomplete);
-        //String apyKey = getString(R.string.clave_apy_5);
+        String apyKey = getString(R.string.clave_apy_5);
 
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), "apyKey");
+        if (!Places.isInitialized()){
+        Places.initialize(getApplicationContext(),apyKey);
         }
 // Create a new Places client instance.
-        //PlacesClient placesClient = Places.createClient(this);
+        PlacesClient placesClient = Places.createClient(this);
+
+btnFavorito = (Button) findViewById(R.id.btnSeleccionarFav);
 
 
-        autocompleteFragment = (AutocompleteSupportFragment)
+
+autocompleteFragment =                 (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+
 //assert  autocompleteFragment != null;
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
+
+        //autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
+autocompleteFragment.setCountry("AR");
 
         autocompleteFragment.setOnPlaceSelectedListener(placeSelectionListener);
 
+btnFavorito.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(AutocompleteActivity.this,ListaLocationsActivity.class);
+        startActivity(intent);
 
+    }
+});
     }
 
     PlaceSelectionListener placeSelectionListener = new PlaceSelectionListener() {

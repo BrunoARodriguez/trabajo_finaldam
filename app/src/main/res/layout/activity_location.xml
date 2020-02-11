@@ -11,7 +11,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="@dimen/etiquetas"
-    android:text="@string/texto_location"/>
+    android:text="@string/texto_location"
+    android:textColor="@color/colorPrimary"
+    android:background="@color/cardview_dark_background"
+    android:layout_marginBottom="15dp"/>
 
 
     <LinearLayout
@@ -23,17 +26,14 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:id="@+id/btnMyLocation"
-    android:text="@string/btn_ubicacion_actual"/>
+    android:text="@string/btn_ubicacion_actual"
+    android:textColor="@color/colorPrimary"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/btn_ubicacion_destino"
-            android:id="@+id/btnLocationDest"/>
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-android:text="@string/btn_ver"
-    android:id="@+id/btnVerFavoritas"/>
+            android:id="@+id/btnLocationDest"
+            android:textColor="@color/colorPrimary"/>
     </LinearLayout>
     <Button
         android:layout_width="match_parent"
@@ -41,5 +41,11 @@ android:text="@string/btn_ver"
         android:id="@+id/btnAgregarFav"
         android:text="@string/btn_agregar_fav"
         android:visibility="gone"/>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/btnDistanciaLocation"
+    android:text="@string/btn_distancia_location"
+    android:textColor="@color/colorPrimary"/>
 
 </LinearLayout>

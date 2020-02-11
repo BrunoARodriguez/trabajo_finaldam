@@ -19,10 +19,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-        />
+    />
 
 
 </androidx.cardview.widget.CardView>
 
+    <Button
+android:id="@+id/btnSeleccionarFav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_ver"
+        android:textColor="@color/colorPrimaryDark"/>
 </LinearLayout>
 
