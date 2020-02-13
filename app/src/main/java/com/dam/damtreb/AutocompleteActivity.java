@@ -1,6 +1,7 @@
 package com.dam.damtreb;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +25,9 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import java.util.Arrays;
 
 public class AutocompleteActivity extends AppCompatActivity {
+    //flags
+    private  static  final  int CODIGO_REQUEST = 1;
+    //variables
     private AutocompleteSupportFragment autocompleteFragment;
 private Button btnFavorito;
 
@@ -59,12 +63,23 @@ btnFavorito.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(AutocompleteActivity.this,ListaLocationsActivity.class);
-        startActivity(intent);
+startActivityForResult(intent,CODIGO_REQUEST);
 
     }
 });
     }
 
+    @Override
+            protected   void  onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        switch (requestCode){
+            case  CODIGO_REQUEST:
+            if (resultCode == RESULT_OK && data != null)
+        //Toast.makeText(AutocompleteActivity.this,"nombre: "+ data.getStringExtra("name")+ " , la latitud es: " + data.getDoubleExtra("latitude", 0.0), Toast.LENGTH_LONG).show();
+                setResult(resultCode, data);
+            finish();
+        }
+    } //cierra onActivityResult
     PlaceSelectionListener placeSelectionListener = new PlaceSelectionListener() {
         @Override
         public void onPlaceSelected(@NonNull Place place) {

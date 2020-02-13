@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dam.damtreb.AutocompleteActivity;
 import com.dam.damtreb.ListaLocationsActivity;
 import com.dam.damtreb.LocationActivity;
 import com.dam.damtreb.R;
@@ -45,19 +46,19 @@ holder.tvTitulo.setText(location.getName());
 holder.btnSeleccionar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        Intent data = new Intent(miContexto, LocationActivity.class);
+        Intent data = new Intent(miContexto, AutocompleteActivity.class);
         data.putExtra("name", location.getName());
         data.putExtra("latitude", location.getLatitude());
         data.putExtra("longitude", location.getLongitude());
         ((Activity) miContexto).setResult(Activity.RESULT_OK, data);
-
+        ((Activity) miContexto).finish();
     }
 });
 holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         Toast.makeText(miContexto,"En desarrollo",Toast.LENGTH_LONG).show();
-    }
+     }
 });
     }
 
