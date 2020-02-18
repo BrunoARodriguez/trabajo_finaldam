@@ -3,7 +3,7 @@
     <string name="text_main">Bienvenido a DamTreb</string>
     <string name="text_main_2">Selecciona una opción:</string>
     <string name="btn_billetes">Leer billetes</string>
-    <string name="btn_agregar_ubicacion">Agregar una ubicacion</string>
+    <string name="btn_agregar_ubicacion">Iniciar un recorrido</string>
     <string name="btn_ver">Seleccionar favorita para destino</string>
     <string name="btn_volver">Volver a menú</string>
     <string name="texto_location">Para el recorrido ingrese ubicación actual y destino</string>

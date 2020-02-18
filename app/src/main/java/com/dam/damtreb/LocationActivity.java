@@ -70,7 +70,7 @@ result = new  float[3];
         btnLocationDest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//btnAgregarFavorito.setVisibility(View.VISIBLE);
+btnAgregarFavorito.setVisibility(View.VISIBLE);
 
 Intent intent = new Intent(LocationActivity.this, AutocompleteActivity.class);
 startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
@@ -113,7 +113,7 @@ lng = data.getDoubleExtra("longitude", 0.0);
 nombre = "Ubicación actual";
 Toast.makeText(LocationActivity.this,"nombre: "+ nombre + ", la latitud: "+ lat, Toast.LENGTH_LONG).show();
 locationStart = new Location(nombre,lng,lat);
-locationFinish = new Location("Casa de gobierno (Santa Fe) 2",   -60.7108 ,-31.6581);
+//locationFinish = new Location("Casa de gobierno (Santa Fe) 2",   -60.7108 ,-31.6581);
 
 }
         break;
