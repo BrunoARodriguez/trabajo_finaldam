@@ -14,4 +14,5 @@
     <string name="btn_seleccionar_de_lista">Seleccionar ubicación</string>
     <string name="btn_eliminar_de_fila">Eliminar ubicación favorita</string>
     <string name="title_activity_maps">Map</string>
+    <string name="texto_autocomplete">Ingresa el destino a buscar:</string>
 </resources>

@@ -6,23 +6,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".AutocompleteActivity">
 
-
-<androidx.cardview.widget.CardView
+<TextView
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/cardview_dark_background"
-    android:layout_gravity="center">
+    android:layout_height="wrap_content"
+    android:text="@string/texto_autocomplete"
+    android:textSize="@dimen/etiquetas"
+    android:layout_marginStart="40dp"
+    android:layout_marginBottom="40dp"/>
 
-
-<fragment
-        android:id="@+id/autocomplete_fragment"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-    />
+        android:id="@+id/etDestino"
+        android:hint="Ingrese el nombre de la ubicación destino"
+        android:inputType="text"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"/>
 
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/btnBuscar"
+    android:textSize="@dimen/etiquetas"
+    android:text="Buscar"
+    android:textColor="@color/colorPrimary"/>
 
-</androidx.cardview.widget.CardView>
 
     <Button
 android:id="@+id/btnSeleccionarFav"

@@ -9,12 +9,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.dam.damtreb.dao.RepositoryDataBase;
+import com.dam.damtreb.dao.TicketDao;
+import com.dam.damtreb.domain.Ticket;
 
 import java.io.ByteArrayOutputStream;
 
@@ -70,13 +75,40 @@ public class MainActivity extends AppCompatActivity {
             String imagenString = Base64.encodeToString(imagen, Base64.DEFAULT);
             //String imagenString = new String(imagen);
 //Toast.makeText(MainActivity.this,"volvio a la pantalla",Toast.LENGTH_LONG).show();
-
-            Intent intent = new Intent(MainActivity.this, TicketActivity.class);
-            startActivity(intent);
+           Ticket villete = new Ticket(imagenString,0);
+SaveTicket tast = new SaveTicket();
+tast.execute(villete);
 
 
         }
     }
+
+    //tarea de guardar
+
+    public  class  SaveTicket extends AsyncTask<Ticket,Void,Void>{
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent intent = new Intent(MainActivity.this, TicketActivity.class);
+            startActivity(intent);
+
+        }
+
+        @Override
+        protected Void doInBackground(Ticket... tickets) {
+            TicketDao dao = RepositoryDataBase.getInstance(MainActivity.this).getMyDataBase().ticketDao();
+            if (tickets[0].getId() != null){
+                dao.actualizarTicket(tickets[0]);
+            }
+            else {
+                dao.insertarTicket(tickets[0]);
+            }
+
+            return null;
+        }
+    } //cierra tarea
 }
 
 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -27,14 +28,18 @@ import java.util.Arrays;
 public class AutocompleteActivity extends AppCompatActivity {
     //flags
     private  static  final  int CODIGO_REQUEST = 1;
-    //variables
-    private AutocompleteSupportFragment autocompleteFragment;
-private Button btnFavorito;
-
+    //widget
+    //private AutocompleteSupportFragment autocompleteFragment;
+private EditText etNombreDestino;
+private  Button btnBuscar;
+    private Button btnFavorito;
+//variables
+private  String nombre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autocomplete);
+        /*
         String apyKey = getString(R.string.clave_apy_5);
 
         if (!Places.isInitialized()){
@@ -43,7 +48,6 @@ private Button btnFavorito;
 // Create a new Places client instance.
         PlacesClient placesClient = Places.createClient(this);
 
-btnFavorito = (Button) findViewById(R.id.btnSeleccionarFav);
 
 
 
@@ -58,7 +62,19 @@ autocompleteFragment =                 (AutocompleteSupportFragment)
 autocompleteFragment.setCountry("AR");
 
         autocompleteFragment.setOnPlaceSelectedListener(placeSelectionListener);
+todo lo de places se comenta ya que trabajo con openStreepMaps
+*/
+etNombreDestino = (EditText) findViewById(R.id.etDestino);
+btnBuscar = (Button) findViewById(R.id.btnBuscar);
+btnFavorito = (Button) findViewById(R.id.btnSeleccionarFav);
 
+btnBuscar.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        nombre = etNombreDestino.getText().toString();
+
+    }
+});
 btnFavorito.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
@@ -80,7 +96,9 @@ startActivityForResult(intent,CODIGO_REQUEST);
             finish();
         }
     } //cierra onActivityResult
-    PlaceSelectionListener placeSelectionListener = new PlaceSelectionListener() {
+    /*
+    esto tambien esta comentado por ser de apy places
+     PlaceSelectionListener placeSelectionListener = new PlaceSelectionListener() {
         @Override
         public void onPlaceSelected(@NonNull Place place) {
 
@@ -100,6 +118,7 @@ startActivityForResult(intent,CODIGO_REQUEST);
 
         }
     };
+*/
 
 }
 

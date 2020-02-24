@@ -58,6 +58,9 @@ holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         Toast.makeText(miContexto,"En desarrollo",Toast.LENGTH_LONG).show();
+        ListaLocationsActivity.DeleteTast tarea = new  ListaLocationsActivity().new DeleteTast(miContexto);
+        tarea.execute(location);
+
      }
 });
     }

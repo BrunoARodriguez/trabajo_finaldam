@@ -40,6 +40,7 @@ public class LocationActivity extends AppCompatActivity {
     private Button btnLocationDest;
     private Button btnAgregarFavorito;
     private  Button btnDistancia;
+    private  Button btnVerEnMapa;
     //variables
     private Location locationStart;
     private Location locationFinish;
@@ -57,6 +58,8 @@ private  float[] result = null;
         btnLocationDest = (Button) findViewById(R.id.btnLocationDest);
         btnAgregarFavorito = (Button) findViewById(R.id.btnAgregarFav);
 btnDistancia = (Button) findViewById(R.id.btnDistanciaLocation);
+btnVerEnMapa = (Button) findViewById(R.id.btnVerMapa);
+
 result = new  float[3];
 
 
@@ -127,6 +130,13 @@ locationStart = new Location(nombre,lng,lat);
 
         }
     });
+        btnVerEnMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LocationActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

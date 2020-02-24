@@ -10,11 +10,12 @@ public class RepositoryDataBase {
 private   static RepositoryDataBase repo = null;
 private MyDataBase myDataBase;
 private LocationDao locationDao;
-
+private  TicketDao ticketDao;
 private  RepositoryDataBase(Context ctx){
     myDataBase = Room.databaseBuilder(ctx, MyDataBase.class, "Data base DamTreb")
             .fallbackToDestructiveMigration().build();
     locationDao = myDataBase.locationDao();
+    ticketDao = myDataBase.ticketDao();
 }
 
 public  static RepositoryDataBase getInstance(Context ctx) {
