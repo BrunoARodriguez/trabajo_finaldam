@@ -74,7 +74,7 @@ result = new  float[3];
             @Override
             public void onClick(View view) {
 btnAgregarFavorito.setVisibility(View.VISIBLE);
-
+btnVerEnMapa.setVisibility(View.VISIBLE);
 Intent intent = new Intent(LocationActivity.this, AutocompleteActivity.class);
 startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
 
@@ -116,7 +116,7 @@ lng = data.getDoubleExtra("longitude", 0.0);
 nombre = "Ubicación actual";
 Toast.makeText(LocationActivity.this,"nombre: "+ nombre + ", la latitud: "+ lat, Toast.LENGTH_LONG).show();
 locationStart = new Location(nombre,lng,lat);
-//locationFinish = new Location("Casa de gobierno (Santa Fe) 2",   -60.7108 ,-31.6581);
+//locationFinish = new Location("Buenos aires",-58.37723,-34.61315);
 
 }
         break;
@@ -134,6 +134,12 @@ locationStart = new Location(nombre,lng,lat);
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LocationActivity.this, MapsActivity.class);
+                intent.putExtra("m_lat",locationStart.getLatitude());
+                intent.putExtra("m_lng",locationStart.getLongitude());
+                intent.putExtra("d_lat", locationFinish.getLatitude());
+                intent.putExtra("d_lng", locationFinish.getLongitude());
+                intent.putExtra("ver", true);
+
                 startActivity(intent);
             }
         });
@@ -176,6 +182,10 @@ super.onStart();
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(context, "Se guardó la ubicación en favoritos", Toast.LENGTH_LONG).show();
+            locationStart = null;
+            locationFinish = null;
+            btnAgregarFavorito.setVisibility(View.GONE);
+            btnVerEnMapa.setVisibility(View.GONE);
             Intent intent = new Intent(context, MainActivity.class);
             startActivity(intent);
 

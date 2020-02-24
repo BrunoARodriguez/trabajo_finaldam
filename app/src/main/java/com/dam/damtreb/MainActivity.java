@@ -91,6 +91,7 @@ tast.execute(villete);
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            Toast.makeText(MainActivity.this,"Se guardo el villete", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, TicketActivity.class);
             startActivity(intent);
 

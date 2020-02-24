@@ -79,6 +79,7 @@ android:layout_marginStart="15dp"
     android:text="Ver ubicaciones en mapa"
     android:layout_marginTop="30dp"
     android:layout_marginStart="15dp"
+    android:visibility="gone"
     app:layout_constraintTop_toBottomOf="@id/btnDistanciaLocation"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>

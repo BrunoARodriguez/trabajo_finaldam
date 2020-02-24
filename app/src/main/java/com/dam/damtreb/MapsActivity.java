@@ -27,7 +27,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int CHECK = -1;
 
     private GoogleMap mMap;
-    private Marker ubicacion;
+    private Marker miUbicacion;
+    private  Marker ubicacionDestino;
     private LatLng myLocation;
 
     @Override
@@ -57,22 +58,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         actualizarMapa();
         // marcador en ubicacion actual
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    Toast.makeText(MapsActivity.this, "name: " + location.getProvider(), Toast.LENGTH_SHORT).show();
+        Intent i1 = getIntent();
+        if (i1.getBooleanExtra("ver", false)){
+LatLng destino = new LatLng(i1
+.getDoubleExtra("d_lat", 0.0),i1.getDoubleExtra("d_lng", 0.0));
+            ubicacionDestino = mMap.addMarker(new MarkerOptions().position(destino)
+.title("Ubicación destino").draggable(true)
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-                    Intent data = new Intent(MapsActivity.this, LocationActivity.class);
-                    data.putExtra("latitude", location.getLatitude());
-                    data.putExtra("longitude", location.getLongitude());
-                    setResult(RESULT_OK, data);
-                    finish();
-
-                }
-            });
         }
+        else {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        Toast.makeText(MapsActivity.this, "name: " + location.getProvider(), Toast.LENGTH_SHORT).show();
 
+                        Intent data = new Intent(MapsActivity.this, LocationActivity.class);
+                        data.putExtra("latitude", location.getLatitude());
+                        data.putExtra("longitude", location.getLongitude());
+                        setResult(RESULT_OK, data);
+                        finish();
+
+                    }
+                });
+            }
+        }//cierra else
 /*
         //LatLng sydney = new LatLng(-32.9590056, -60.6409738);
 ubicacion = mMap.addMarker(new MarkerOptions().position(myLocation)
