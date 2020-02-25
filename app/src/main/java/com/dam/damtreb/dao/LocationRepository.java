@@ -1,12 +1,12 @@
 package com.dam.damtreb.dao;
 
+import android.os.Handler;
 import android.os.Message;
 
 import com.dam.damtreb.dao.rest.LocationRest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,12 +63,15 @@ if (response.isSuccessful()){
     h.sendMessage(m);
 
 
+
 }
         }
 
         @Override
         public void onFailure(Call<List> call, Throwable t) {
-
+Message m = new Message();
+m.arg1 = ERROR;
+h.sendMessage(m);
         }
     });
 

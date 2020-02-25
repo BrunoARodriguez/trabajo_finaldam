@@ -8,12 +8,16 @@ import androidx.fragment.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.dam.damtreb.dao.LocationRepository;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
 import  com.google.android.libraries.places.api.model.Place;
@@ -72,6 +76,7 @@ btnBuscar.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         nombre = etNombreDestino.getText().toString();
+        LocationRepository.getInstans().buscar(nombre, myHandler);
 
     }
 });
@@ -120,5 +125,17 @@ startActivityForResult(intent,CODIGO_REQUEST);
     };
 */
 
+    Handler myHandler = new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+        switch (msg.arg1){
+            case  LocationRepository.CONSULTA:
+                break;
+            case  LocationRepository.ERROR:
+                Toast.makeText(AutocompleteActivity.this,"No se encontraron ubicaciones con ese nombre", Toast.LENGTH_LONG).show();
+                break;
+        }
+        }
+    };
 }
 
