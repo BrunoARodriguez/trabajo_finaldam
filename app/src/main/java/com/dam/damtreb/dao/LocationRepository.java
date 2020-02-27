@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.dam.damtreb.dao.rest.LocationRest;
+import com.dam.damtreb.domain.ResponsejSon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LocationRepository {
 public  static  String _SERVER = "https://nominatim.openstreetmap.org/";
 
-private List lista;
+private List<ResponsejSon> lista;
 
 public   static final int CONSULTA = 1;
 public  static final int ERROR = -1;
@@ -51,10 +52,10 @@ private  void  configurarRetrofit(){
 //Repositorio get
 
 public void  buscar(String nombre, final Handler h){
-    Call<List> llamada = this.locationRest.getLocations(nombre,"json",1,1);
-    llamada.enqueue(new Callback<List>() {
+    Call<List<ResponsejSon>> llamada = this.locationRest.getLocations(nombre,"json",1,1);
+    llamada.enqueue(new Callback<List<ResponsejSon>>() {
         @Override
-        public void onResponse(Call<List> call, Response<List> response) {
+        public void onResponse(Call<List<ResponsejSon>> call, Response<List<ResponsejSon>> response) {
 if (response.isSuccessful()){
     lista.clear();
     lista.addAll(response.body());
@@ -68,7 +69,7 @@ if (response.isSuccessful()){
         }
 
         @Override
-        public void onFailure(Call<List> call, Throwable t) {
+        public void onFailure(Call<List<ResponsejSon>> call, Throwable t) {
 Message m = new Message();
 m.arg1 = ERROR;
 h.sendMessage(m);
@@ -78,4 +79,9 @@ h.sendMessage(m);
 }
 
 
+    public List getLista() {
+        return lista;
+    }
 }
+
+
