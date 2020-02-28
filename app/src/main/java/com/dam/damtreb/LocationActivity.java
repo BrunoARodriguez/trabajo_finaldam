@@ -60,6 +60,8 @@ private  float[] result = null;
 btnDistancia = (Button) findViewById(R.id.btnDistanciaLocation);
 btnVerEnMapa = (Button) findViewById(R.id.btnVerMapa);
 
+btnAgregarFavorito.setEnabled(false);
+btnVerEnMapa.setEnabled(false);
 result = new  float[3];
 
 
@@ -73,9 +75,8 @@ result = new  float[3];
         btnLocationDest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-btnAgregarFavorito.setVisibility(View.VISIBLE);
-btnVerEnMapa.setVisibility(View.VISIBLE);
-Intent intent = new Intent(LocationActivity.this, AutocompleteActivity.class);
+btnVerEnMapa.setEnabled(true);
+                Intent intent = new Intent(LocationActivity.this, AutocompleteActivity.class);
 startActivityForResult(intent, AUTO_COMPLETE_REQUEST);
 
             }
@@ -99,7 +100,9 @@ protected void onActivityResult(int requestCode, int resultCode, @Nullable Inten
          lat = data.getDoubleExtra("latitude", 0.0);
          lng = data.getDoubleExtra("longitude", 0.0);
         nombre = data.getStringExtra("name");
-
+if (data.getBooleanExtra("fav", false)){
+    btnAgregarFavorito.setEnabled(true);
+}
         locationFinish = new Location(nombre, lng, lat);
 
     }
@@ -125,7 +128,21 @@ locationStart = new Location(nombre,lng,lat);
         @Override
         public void onClick(View view) {
             android.location.Location.distanceBetween(locationStart.getLatitude(),locationStart.getLongitude(),locationFinish.getLatitude(),locationFinish.getLongitude(), result);
-            Toast.makeText(LocationActivity.this,"la distancia es: "+ result[0]+" , a la ubicación destino", Toast.LENGTH_LONG).show();
+            String direccion = null;
+if (locationStart.getLatitude() < locationFinish.getLatitude()){
+    direccion = "sur";
+}
+else
+    direccion = "norte";
+if (locationStart.getLongitude() < locationFinish.getLongitude()){
+    direccion.concat(", Oeste");
+}
+else {
+    direccion.concat(", Este");
+}
+
+
+            Toast.makeText(LocationActivity.this,"la distancia es: "+ result[0]+", en dirección"+ direccion, Toast.LENGTH_LONG).show();
 
 
         }

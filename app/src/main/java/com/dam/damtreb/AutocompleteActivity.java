@@ -164,6 +164,7 @@ Intent intent = new Intent(AutocompleteActivity.this, LocationActivity.class);
 intent.putExtra("latitude",lat);
 intent.putExtra("longitude",lng);
 intent.putExtra("name",responsejSon.getName());
+intent.putExtra("fav",true);
 setResult(RESULT_OK,intent);
 finish();
 
